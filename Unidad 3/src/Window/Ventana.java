@@ -505,7 +505,8 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
 			getContentPane().revalidate();	
 			
 		}
-		if(e.getKeyCode()== KeyEvent.VK_W) {
+		
+		if(e.getKeyCode()== KeyEvent.VK_SPACE) {
 			Component [] elementos = btn_panel.getComponents();
 			
 			for (int i = 0; i < elementos.length;i++) {
@@ -521,7 +522,37 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
 				
 			}
 		}
+		
+		//Ejercicio 14
+		Component[] elementos = btn_panel.getComponents();
+		
+		for(int i = 0; i < elementos.length; i++) {
+			
+		    if (elementos[i].getClass().toString().equals("class javax.swing.JButton")) {
+		    	
+		        JButton btn = (JButton) elementos[i];
+		        
+		        switch (e.getKeyCode()) {
+		            case 87: // Tecla W
+		                btn.setLocation(btn.getX(), btn.getY() - 10);
+		                break;
+		            case 83: // Tecla S
+		                btn.setLocation(btn.getX(), btn.getY() + 10);
+		                break;
+		            case 65: // Tecla A
+		                btn.setLocation(btn.getX() - 10, btn.getY());
+		                break;
+		            case 68: // Tecla D
+		                btn.setLocation(btn.getX() + 10, btn.getY());
+		                break;
+		        }
+		    }
+		}
+		getContentPane().repaint();
+		getContentPane().revalidate();
+
 	}
+	
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -964,5 +995,4 @@ public class Ventana extends JFrame implements MouseListener, KeyListener{
 		this.add(pnlPrincipal);
 	}
 
-	
 }
