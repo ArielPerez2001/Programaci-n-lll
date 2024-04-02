@@ -1,5 +1,6 @@
 package Window;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class Gato extends JFrame {
 
@@ -28,6 +31,13 @@ public class Gato extends JFrame {
     private JButton btn7;
     private JButton btn8;
     private JButton btn9;
+    
+    //Contador
+    private int contadorGato = 1;
+    private int contadorRaton = 1;
+    private JPanel panel;
+    private JLabel lblNewLabel;
+    private JLabel lblO;
 
     /**
      * Launch the application.
@@ -50,23 +60,41 @@ public class Gato extends JFrame {
      */
     public Gato() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 300, 300);
+        setBounds(100, 100, 625, 542);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         setContentPane(contentPane);
-        contentPane.setLayout(new GridLayout(3, 3, 0, 0));
 
         //Ajusté la creacion de botones 
         btn1 = new JButton(" ");
+        btn1.setBackground(Color.PINK);
+        btn1.setBounds(5, 61, 200, 124);
         btn2 = new JButton(" ");
+        btn2.setBackground(Color.PINK);
+        btn2.setBounds(205, 61, 200, 124);
         btn3 = new JButton(" ");
+        btn3.setBackground(Color.PINK);
+        btn3.setBounds(405, 61, 200, 124);
         btn4 = new JButton(" ");
+        btn4.setBackground(Color.PINK);
+        btn4.setBounds(5, 195, 200, 124);
         btn5 = new JButton(" ");
+        btn5.setBackground(Color.PINK);
+        btn5.setBounds(205, 195, 200, 124);
         btn6 = new JButton(" ");
+        btn6.setBackground(Color.PINK);
+        btn6.setBounds(405, 195, 200, 124);
         btn7 = new JButton(" ");
+        btn7.setBackground(Color.PINK);
+        btn7.setBounds(5, 329, 200, 124);
         btn8 = new JButton(" ");
+        btn8.setBackground(Color.PINK);
+        btn8.setBounds(205, 329, 200, 124);
         btn9 = new JButton(" ");
+        btn9.setBackground(Color.PINK);
+        btn9.setBounds(405, 329, 200, 124);
+        contentPane.setLayout(null);
 
         
         contentPane.add(btn1);
@@ -78,8 +106,33 @@ public class Gato extends JFrame {
         contentPane.add(btn7);
         contentPane.add(btn8);
         contentPane.add(btn9);
+        
+        JButton restartButton = new JButton("Reiniciar");
+        restartButton.setBounds(5, 463, 600, 34);
+        contentPane.add(restartButton);
+        
+        panel = new JPanel();
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.setBounds(5, 10, 596, 41);
+        contentPane.add(panel);
+        panel.setLayout(null);
+        
+        lblNewLabel = new JLabel("O: " + 0);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 34));
+        lblNewLabel.setBounds(401, 5, 82, 31);
+        panel.add(lblNewLabel);
+        
+        lblO = new JLabel("X: " + 0);
+        lblO.setFont(new Font("Tahoma", Font.PLAIN, 34));
+        lblO.setBounds(120, 5, 89, 31);
+        panel.add(lblO);
 
-       
+        restartButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+                reiniciarJuego();
+            }
+        });
+        
         btn1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jugar(btn1);
@@ -143,7 +196,18 @@ public class Gato extends JFrame {
             
             if (ganador()) 
             {
-                JOptionPane.showMessageDialog(null, "¡" + ((turno) ? "Gato" : "Ratón") + " gana!");
+                JOptionPane.showMessageDialog(null, "¡" + ((turno) ? "Raton" : "Gato") + " gana!");
+                if(turno == true) {
+                	
+                	turno = !turno;
+                	lblNewLabel.setText("O: " + contadorGato++);
+                    reiniciarJuego();
+                }
+                else {
+                	lblO.setText("X: " + contadorRaton++);
+                	reiniciarJuego();
+                }
+                
                 reiniciarJuego();
             } 
             else if (empate()) 
